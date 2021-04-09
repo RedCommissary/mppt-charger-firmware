@@ -1,32 +1,6 @@
-# Prerequisites
-*.d
+# Build folder
+source/build/
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
+# Debug config files
+source/.vscode/.cortex-debug.peripherals.state.json
+source/.vscode/.cortex-debug.registers.state.json
