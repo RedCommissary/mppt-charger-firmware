@@ -1,7 +1,7 @@
 /********************************************************************************
  * project     Solar charge controller with MPPT algorithm                      *
  *                                                                              *
- * file        main.h                                                           *
+ * file        main.hpp                                                         *
  * author      @RedCommissary                                                   *
  * date        07.05.2020                                                       *
  * copyright   The MIT License (MIT)                                            *
@@ -16,8 +16,4 @@
  ********************************************************************************/
 
 #include "stm32f3xx.h"
-
-#include "Gpio.hpp"
-#include "Clock.hpp"
-
-#include "Led.hpp"
+#include "Application.hpp"

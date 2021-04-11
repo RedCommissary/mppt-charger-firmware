@@ -20,9 +20,6 @@
  ********************************************************************************/
 
 int main() {
-    Led::Init();
-    Led::On(Led::Type::on);
-    Led::On(Led::Type::info);
-
+    Application::Init();
     while(1) {}
 }
