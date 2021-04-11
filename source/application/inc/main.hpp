@@ -16,4 +16,6 @@
  ********************************************************************************/
 
 #include "stm32f3xx.h"
+
+#include "Periphery.hpp"
 #include "Application.hpp"

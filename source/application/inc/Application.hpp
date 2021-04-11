@@ -15,12 +15,11 @@
 
 #include "startupF334.hpp"
 
-#include "UserParameters.hpp"
-
-#include "Clock.hpp"
-#include "Led.hpp"
 #include "Timer.hpp"
+#include "Led.hpp"
+#include "Exti.hpp"
 
+#include "UserParameters.hpp"
 #include "Battery.hpp"
 
 /********************************************************************************

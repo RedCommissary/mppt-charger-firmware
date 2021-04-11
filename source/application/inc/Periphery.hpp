@@ -1,27 +1,31 @@
 /********************************************************************************
- * project     Solar charge controller with MPPT algorithm                      *
+ * class        Setting to basic periphery on the board                         *
  *                                                                              *
- * file        main.cpp                                                         *
- * author      @RedCommissary                                                   *
- * date        07.05.2020                                                       *
- * copyright   The MIT License (MIT)                                            *
- * brief       Main program body                                                *
+ * file         Periphery.hpp                                                   *
+ * author       @RedCommissary                                                  *
+ * date         12.04.2021                                                      *
  *                                                                              *
  ********************************************************************************/
+
+#pragma once
 
 /********************************************************************************
  * Include 
  ********************************************************************************/
 
-#include "main.hpp"
+#include "Clock.hpp"
+#include "Led.hpp"
+#include "Timer.hpp"
+#include "Exti.hpp"
 
 /********************************************************************************
- * Main program body
+ * Class Periphery
  ********************************************************************************/
-
-int main() {
-    Periphery::Init();
-    Application::Init();
-
-    while(1) {}
-}
+class Periphery {
+    public:
+        static void Init() {
+            Clock::Init();
+            Led::Init();
+            Exti::Init();
+        }
+};

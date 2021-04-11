@@ -13,12 +13,8 @@
  ********************************************************************************/
 
 void Application::Init() {
-    Clock::Init();
-    Led::Init();
-
     StartLowSpeedProcessing();
     StartHighSpeedProcessing();
-
     Led::On(Led::Type::on);
 }
 
@@ -37,4 +33,12 @@ void sTim2::handler() {
 void sTim3::handler() {
     Timer::ResetFlagTim3();
     Led::Toggle(Led::Type::status);
+}
+
+/********************************************************************************
+ * Logic for button
+ ********************************************************************************/
+void sExti::line5Handler() {
+    Exti::ResetInterruptFlag();
+    Led::Toggle(Led::Type::fault);             
 }
