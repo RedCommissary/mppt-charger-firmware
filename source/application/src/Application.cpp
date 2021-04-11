@@ -26,15 +26,15 @@ void Application::Init() {
  * High speed processing #1
  ********************************************************************************/
 
-void sTim3::handler() {
-    TIM3->SR &= ~TIM_SR_UIF;
+void sTim2::handler() {
+    Timer::ResetFlagTim2();
 }
 
 /********************************************************************************
  * Low speed processing #1
  ********************************************************************************/
 
-void sTim2::handler() {
-    TIM2->SR &= ~TIM_SR_UIF;
+void sTim3::handler() {
+    Timer::ResetFlagTim3();
     Led::Toggle(Led::Type::status);
 }

@@ -19,6 +19,8 @@
 
 #include "Clock.hpp"
 #include "Led.hpp"
+#include "Timer.hpp"
+
 #include "Battery.hpp"
 
 /********************************************************************************
@@ -35,24 +37,10 @@ class Application {
 
     private:
         static void StartHighSpeedProcessing() {
-            RCC->APB1ENR |= RCC_APB1ENR_TIM3EN;     
-
-            TIM3->PSC = 36-1;
-            TIM3->ARR = 500;
-            TIM3->DIER |= TIM_DIER_UIE;
-            TIM3->CR1  |= TIM_CR1_CEN;
-
-            NVIC_EnableIRQ(TIM3_IRQn);
+            Timer::InitTimer2(36, 500);
         }
 
         static void StartLowSpeedProcessing() {
-            RCC->APB1ENR |= RCC_APB1ENR_TIM2EN;     
-
-            TIM2->PSC = 36000-1;
-            TIM2->ARR = 1000;
-            TIM2->DIER |= TIM_DIER_UIE;
-            TIM2->CR1  |= TIM_CR1_CEN;
-
-            NVIC_EnableIRQ(TIM2_IRQn);
+            Timer::InitTimer3(36000, 1000);
         }
 };
