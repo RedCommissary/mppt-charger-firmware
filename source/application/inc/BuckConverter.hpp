@@ -1,5 +1,5 @@
 /********************************************************************************
- * class        Control and algorithms for application                          *
+ * class        Control power converter on the buck topology                    *
  *                                                                              *
  * file         Application.h                                                   *
  * author       @RedCommissary                                                  *
@@ -13,34 +13,36 @@
  * Include 
  ********************************************************************************/
 
-#include "startupF334.hpp"
-
-#include "Timer.hpp"
-#include "Led.hpp"
-#include "Exti.hpp"
-
-#include "UserParameters.hpp"
-#include "Battery.hpp"
-#include "BuckConverter.hpp"
+#include "Hrpwm.hpp"
+#include "Feedback.hpp"
+#include "Pid.hpp"
 
 /********************************************************************************
- * Class Application
  * 
- * High speed handler   -   2 kHz
- * Low speed handler    -   1 Hz
+ * Class Buck
  * 
  ********************************************************************************/
 
-class Application {       
-    public:
-        static void Init();
+class BuckConverter {
+public:
+    void Init();
+    void Converter();
+    void SetReferenceVoltage (float voltage);
+    void SetReferenceCurrent (float current);
+    void Start();
+    void Stop();
+    void LoadEnable (bool status);
 
-    private:
-        static void StartHighSpeedProcessing() {
-            Timer::InitTimer2(36, 500);
-        }
+private:
+    uint16_t dutyResult;
 
-        static void StartLowSpeedProcessing() {
-            Timer::InitTimer3(36000, 1000);
-        }
+    struct {
+        float referenceVoltage;
+        float referenceCurrent;
+    } Parameters;
+
+    struct {
+        bool enable;
+        bool error;
+    } Status;
 };

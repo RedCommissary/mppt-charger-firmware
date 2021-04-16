@@ -37,8 +37,11 @@ library/cmsis/src/system_stm32f3xx.c
 
 CXX_SOURCES = \
 system/startup/startupF334.cpp \
+library/bsp/src/Adc.cpp \
 application/src/main.cpp \
-application/src/Application.cpp
+application/src/Application.cpp \
+application/src/BuckConverter.cpp \
+application/src/Feedback.cpp
 
 #######################################
 # Macros for GCC
