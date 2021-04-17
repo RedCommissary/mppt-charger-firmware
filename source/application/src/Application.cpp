@@ -9,26 +9,27 @@
  ********************************************************************************/
 
 BuckConverter Buck;
+UserParameters User;
 
-float inputVoltageUser = 0.0f;
-float outputVoltageUser = 0.0f;
-uint16_t adcInputVoltage = 0;
-uint16_t adcOutputVoltage = 0;
+float inputVoltage = 0.0f;
+float outputVoltage = 0.0f;
 
 /********************************************************************************
  * Class Application
  ********************************************************************************/
 
 void Application::Init() {
-    Buck.SetReferenceVoltage(15.0f);
+    User.Status.enableDevice = false;
+    User.Protection.inputUVLO = 15.0f;
+
+    Buck.Stop();
+    Buck.SetReferenceVoltage(14.4f);
     Buck.SetReferenceCurrent(5.0f);
     Buck.Init();
-    Buck.Start();
     Buck.LoadEnable(true);
 
     StartLowSpeedProcessing();
     StartHighSpeedProcessing();
-    Led::On(Led::Type::on);
 }
 
 /********************************************************************************
@@ -48,11 +49,19 @@ void sTim3::handler() {
     Timer::ResetFlagTim3();
     Led::Toggle(Led::Type::status);
 
-    adcInputVoltage = Adc::inputVoltage[0];
-    adcOutputVoltage = Adc::outputVoltage[0];
+    // Monitoring real-time
+    inputVoltage = Feedback::GetInputVoltage();
+    outputVoltage = Feedback::GetOutputVoltage();
 
-    inputVoltageUser = Feedback::GetInputVoltage();
-    outputVoltageUser = Feedback::GetOutputVoltage();
+    // UVLO input voltage
+    if (inputVoltage > User.Protection.inputUVLO) {
+        Buck.Start();
+        Led::Off(Led::Type::ovp);
+    } else {
+        Buck.Stop();
+        Led::On(Led::Type::ovp);
+    }
+    
 }
 
 /********************************************************************************
@@ -60,5 +69,11 @@ void sTim3::handler() {
  ********************************************************************************/
 void sExti::line5Handler() {
     Exti::ResetInterruptFlag();
-    Led::Toggle(Led::Type::fault);             
+
+    User.Status.enableDevice = !User.Status.enableDevice;
+    if (User.Status.enableDevice) {
+        Led::On(Led::Type::on);
+    } else {
+        Led::Off(Led::Type::on);
+    }          
 }

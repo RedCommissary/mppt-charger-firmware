@@ -43,4 +43,15 @@ public:
     TypeBattery battery;
     uint8_t numberOfCells;
     float chargeCurrent;
+
+    struct {
+        float inputUVLO;
+        float inputOCP;
+        float outputOCP;
+    } Protection;
+
+    struct {
+        bool error;
+        bool enableDevice;
+    } Status;
 };

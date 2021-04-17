@@ -22,7 +22,7 @@ void BuckConverter::Init() {
 
 void BuckConverter::Converter() {
     if (Status.enable != true) {
-        dutyResult = 10;            // Need minimum 2-3 duty for correct work HRPWM
+        dutyResult = 3;             // Need minimum 2-3 duty for correct work HRPWM
         Hrpwm::SetDuty(dutyResult);
         return;
     }
