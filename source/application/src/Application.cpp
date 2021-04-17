@@ -38,6 +38,17 @@ void Application::Init() {
 
 void sTim2::handler() {
     Timer::ResetFlagTim2();
+
+    bool errorConverter = User.Status.errorInputUVLO;
+    
+    if (errorConverter || (!User.Status.enableDevice)) {
+        Buck.Stop();
+        Led::On(Led::Type::fault);
+    } else {
+        Buck.Start();
+        Led::Off(Led::Type::fault);
+    }
+
     Buck.Converter();
 }
 
@@ -55,10 +66,10 @@ void sTim3::handler() {
 
     // UVLO input voltage
     if (inputVoltage > User.Protection.inputUVLO) {
-        Buck.Start();
+        User.Status.errorInputUVLO = false;
         Led::Off(Led::Type::ovp);
     } else {
-        Buck.Stop();
+        User.Status.errorInputUVLO = true;
         Led::On(Led::Type::ovp);
     }
     

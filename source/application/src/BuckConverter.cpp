@@ -25,7 +25,7 @@ void BuckConverter::Converter() {
         dutyResult = 3;             // Need minimum 2-3 duty for correct work HRPWM
         Hrpwm::SetDuty(dutyResult);
         return;
-    }
+    } 
 
     float resultPID = 0.0f;
 

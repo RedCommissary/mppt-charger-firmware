@@ -51,7 +51,7 @@ public:
     } Protection;
 
     struct {
-        bool error;
+        bool errorInputUVLO;
         bool enableDevice;
     } Status;
 };
